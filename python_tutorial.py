@@ -245,14 +245,38 @@ from pylab import rcParams
 import scipy
 from scipy.stats.stats import pearsonr
 
-%matplotlib qt5
 rcParams['figure.figsize'] = 8,4
 plt.style.use('seaborn-whitegrid')
 
+# The Pearson Correlation
 sb.pairplot(cars)
-cars.plot()
 plt.show()
-cars.head()
+X = cars[['mpg', 'hp', 'qsec', 'wt']]
+sb.pairplot(X)
+plt.show()
 
-plt.plot([1,2,3])
+# Correlation using scipy
+scipy_correlation_pearson, pvalue = pearsonr(cars.mpg, cars.hp)
+scipy_correlation_pearson
+
+# Pandas for correlation
+pandas_correlation_pearson = X.corr()
+print(pandas_correlation_pearson)
+
+# Using seaborn to visualize Pearson correlation coefficient
+sb.heatmap(pandas_correlation_pearson)
 plt.show()
+
+
+############################### Non-Parametric Correlation #############################################################
+
+# Categorical Variables, non-normally distributed correlation
+
+# Spearman's Correlation : On Ordinal numeric data, but ranked like categorical variables
+# Variables are non linearly related
+# Data is non-normally distributed
+
+
+# Chi-Squalre Test for Independence
+# p < 0.05 --> reject null hypothesis and conclude that variables are correlated
+
