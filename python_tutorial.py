@@ -216,7 +216,7 @@ print(aa*bb)
 np.dot(aa,bb)
 
 
-############################## Generate Summary Statistics ############################################################
+############################## Generate Summary Statistics #############################################################
 cars.describe()
 cars.mpg.describe()
 cars.mpg.max()
@@ -238,8 +238,6 @@ pd.pivot_table(data=cars, index=['carb', 'gear'], columns=['am', 'cyl'], values=
 
 ############################### Parametric Correlation #################################################################
 import matplotlib
-# import tkinter
-# matplotlib.use('TkAgg')
 import matplotlib.pyplot as plt
 import seaborn as sb
 from pylab import rcParams
