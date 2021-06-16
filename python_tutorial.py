@@ -243,7 +243,7 @@ import seaborn as sb
 from pylab import rcParams
 
 import scipy
-from scipy.stats.stats import pearsonr
+from scipy.stats.stats import pearsonr, spearmanr
 
 rcParams['figure.figsize'] = 8,4
 plt.style.use('seaborn-whitegrid')
@@ -277,6 +277,62 @@ plt.show()
 # Data is non-normally distributed
 
 
-# Chi-Squalre Test for Independence
+# Chi-Square Test for Independence
 # p < 0.05 --> reject null hypothesis and conclude that variables are correlated
+# Assumes: Variables are categorical or numeric (you have binned the numeric to create categories)
 
+
+import matplotlib
+import matplotlib.pyplot as plt
+import seaborn as sb
+from pylab import rcParams
+
+import scipy
+from scipy.stats.stats import pearsonr, spearmanr
+
+rcParams['figure.figsize'] = 8,4
+plt.style.use('seaborn-whitegrid')
+
+X = cars[['cyl', 'vs', 'am', 'gear']]
+sb.pairplot(X)
+plt.show()
+
+cyl = cars.cyl
+vs = cars.vs
+am = cars.am
+gear = cars['gear']
+
+spearmanr_coeff, pvalue = spearmanr(cyl, vs)
+print('Spearman Ranked Correlation Coeff %0.3f' % (spearmanr_coeff))
+
+spearmanr_coeff, pvalue = spearmanr(cyl, am)
+print('Spearman Ranked Correlation Coeff %0.3f' % (spearmanr_coeff))
+
+spearmanr_coeff, pvalue = spearmanr(cyl, gear)
+print('Spearman Ranked Correlation Coeff %0.3f' % (spearmanr_coeff))
+
+spearmanr_coeff_matrix = X.corr(method="spearman")
+spearmanr_coeff_matrix
+
+sb.heatmap(spearmanr_coeff_matrix, xticklabels=spearmanr_coeff_matrix.columns.values,
+           yticklabels=spearmanr_coeff_matrix.columns.values)
+plt.show()
+
+# Chi-Square Test for Independence
+from scipy.stats import chi2_contingency
+
+table = pd.crosstab(cyl, am)
+chi2, p, dof, expected = chi2_contingency(table.values)
+print('Chi-Square statistic %0.3f p_value %0.3f' % (chi2, p))
+
+table = pd.crosstab(cyl, vs)
+chi2, p, dof, expected = chi2_contingency(table.values)
+print('Chi-Square statistic %0.3f p_value %0.3f' % (chi2, p))
+
+table = pd.crosstab(cyl, gear)
+chi2, p, dof, expected = chi2_contingency(table.values)
+print('Chi-Square statistic %0.3f p_value %0.3f' % (chi2, p))
+
+# Since none of the p-values are greater than 0.05, we must reject the null hypothesis and variables are correlated
+sb.pairplot(X)
+plt.show()
