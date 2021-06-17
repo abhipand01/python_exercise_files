@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 from pandas import Series, DataFrame
-
+cars_address = 'C:/Users/abhis/Desktop/python_exercise_files/Data/mtcars.csv'
 
 ############################# Chapter 2: Data Preparation Start ########################################################
 
@@ -154,7 +154,7 @@ print(df_sorted)
 
 ########################## Grouping and Aggregation ####################################################################
 
-cars = pd.read_csv('C:/Users/abhis/Desktop/python_exercise_files/Data/mtcars.csv',header="infer")
+cars = pd.read_csv(cars_address,header="infer")
 cars = cars.rename(columns={'Unnamed: 0':'car_names'})
 
 print(cars.head())
@@ -339,3 +339,46 @@ plt.show()
 
 
 ############################### Transforming dataset distribution ######################################################
+## Data Scaling: Needed for variable standardization, increase, decrease or standardize spread: Very crucial for ML
+
+# 2 ways to scale the data
+#### 1 normalize i.e., between 0 to 1
+#### 2 standardize it i.e., zero mean and unit variance
+
+### scikit-learn for scaling, centering, normalizing and binning your data
+
+import matplotlib
+import matplotlib.pyplot as plt
+from matplotlib import rcParams
+import seaborn as sb
+
+import scipy
+from scipy.stats.stats import pearsonr, spearmanr
+
+import sklearn
+from sklearn import preprocessing
+from sklearn.preprocessing import scale
+
+rcParams['figure.figsize'] = 8,4
+plt.style.use('seaborn-whitegrid')
+
+cars = pd.read_csv(cars_address,header="infer")
+cars = cars.rename(columns={'Unnamed: 0':'car_names'})
+
+# plotting mpg
+plt.plot(cars.mpg)
+plt.show()
+
+cars['mpg'].describe()
+
+# creating matrix for mpg
+mpg_matrix = cars['mpg'].values.reshape(-1,1)
+scaled_mpg =  preprocessing.MinMaxScaler().fit_transform(mpg_matrix)
+
+plt.plot(scaled_mpg)
+plt.show()
+
+scaled_mpg =  preprocessing.MinMaxScaler(feature_range=(0, 10)).fit_transform(mpg_matrix)
+
+plt.plot(scaled_mpg)
+plt.show()
