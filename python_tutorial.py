@@ -58,8 +58,6 @@ print(series_obj)
 df_obj_missing = df_obj[df_obj > 16]
 print(df_obj_missing)
 
-df_obj_missing.isnull() = 100
-
 np.random.seed(25)
 df_obj = DataFrame(np.random.rand(36).reshape(6, 6),
                    index=['r1', 'r2', 'r3', 'r4', 'r5', 'r6'],
