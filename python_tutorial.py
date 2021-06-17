@@ -336,3 +336,6 @@ print('Chi-Square statistic %0.3f p_value %0.3f' % (chi2, p))
 # Since none of the p-values are greater than 0.05, we must reject the null hypothesis and variables are correlated
 sb.pairplot(X)
 plt.show()
+
+
+############################### Transforming dataset distribution ######################################################
