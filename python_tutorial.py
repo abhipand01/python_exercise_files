@@ -373,12 +373,44 @@ cars['mpg'].describe()
 
 # creating matrix for mpg
 mpg_matrix = cars['mpg'].values.reshape(-1,1)
-scaled_mpg =  preprocessing.MinMaxScaler().fit_transform(mpg_matrix)
 
+# scale between 0 to 1
+scaled_0_1 = preprocessing.MinMaxScaler()
+scaled_mpg =  scaled_0_1.fit_transform(mpg_matrix)
 plt.plot(scaled_mpg)
 plt.show()
 
-scaled_mpg =  preprocessing.MinMaxScaler(feature_range=(0, 10)).fit_transform(mpg_matrix)
-
-plt.plot(scaled_mpg)
+# scale between 0 and 10
+scaled_0_10 = preprocessing.MinMaxScaler(feature_range=(0, 10))
+scaled_mpg_10 =  scaled_0_10.fit_transform(mpg_matrix)
+plt.plot(scaled_mpg_10)
 plt.show()
+
+# Unscale from 0 to 10 to original
+scaled_0_10.fit(mpg_matrix)
+scaled_0_10.get_params()
+unscaled_mpg = scaled_0_10.inverse_transform(scaled_mpg_10)
+plt.plot(unscaled_mpg)
+plt.show()
+
+
+# Using scale() to scale your features
+standardise_mpg = scale(cars.mpg, axis=0, with_mean=False, with_std=False)
+plt.plot(standardise_mpg)
+plt.show()
+
+standardise_mpg = scale(cars.mpg)
+plt.plot(standardise_mpg)
+plt.show()
+
+# Normalisation is a procedure followed to bring the data closer to the requirements of the algorithms, or at least
+# to pre-process data so as to ease the algorithm's job. Variables can be normalised (to unit zero mean and unit
+# variable, or to the interval [0, 1]), data elements can be normalised (when all their attributes have the
+# same 'units') and the target variable can be normalised too (using a logarithmic transform). The choice to do
+# or not to do normalization is of course left to the practitioner, but it can be advised with virtually no risk
+# to always perform variable normalisation to [0, 1] when the variable values are bounded, to zero mean and unit
+# variance otherwise, and to perform log transform of the target whenever it is skewed.
+
+
+###############################
+
