@@ -415,15 +415,19 @@ plt.show()
 
 
 ############################### Outlier Analysis #######################################################################
-# Only Univariate methods
+
+############################################# Only Univariate methods ################################
+
 #### 1. Box plot methods - remove / cap the outliers at 1.5 * IQR i.e. 25% to 75% range
 
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 from pylab import rcParams
+import seaborn as sb
 
 rcParams['figure.figsize'] = 5, 4
+sb.set_style('whitegrid')
 
 iris_data = pd.read_csv(iris_data_address)
 iris_data.columns = ['Sepal Length', 'Sepal Width', 'Petal Length', 'Petal Width', 'Species']
@@ -433,6 +437,10 @@ y = iris_data.iloc[:, 4].values
 
 # Identifying outliers from Tukey boxplots
 iris_data.boxplot(return_type='dict')
+plt.show()
+iris_data.boxplot(return_type='axes')
+plt.show()
+iris_data.boxplot(return_type='both')
 plt.show()
 
 # sepal width > 4 and < 2.05 could be potential outliers
@@ -451,3 +459,13 @@ print(x_df.describe())
 # upper bound = 3.3 + 1.5*IRQ = 4.05
 
 
+############################################# Multivariate methods ##################################
+
+data = iris_data.iloc[:, 1:4].values
+target = iris_data.iloc[:, 4].values
+sb.boxplot(x='Species', y='Sepal Length', data=iris_data, palette='hls')
+plt.show()
+
+# Scatterplot matrix
+sb.pairplot(iris_data, hue='Species', palette='hls')
+plt.show()
