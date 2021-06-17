@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 from pandas import Series, DataFrame
 cars_address = 'C:/Users/abhis/Desktop/python_exercise_files/Data/mtcars.csv'
+iris_data_address = 'C:/Users/abhis/Desktop/python_exercise_files/Data/iris.data.csv'
 
 ############################# Chapter 2: Data Preparation Start ########################################################
 
@@ -410,7 +411,14 @@ plt.show()
 # or not to do normalization is of course left to the practitioner, but it can be advised with virtually no risk
 # to always perform variable normalisation to [0, 1] when the variable values are bounded, to zero mean and unit
 # variance otherwise, and to perform log transform of the target whenever it is skewed.
+# http://www.damienfrancois.be/blog/pivot/entry.php?id=8
 
 
-###############################
 
+
+############################### Outlier Analysis #######################################################################
+# Only Univariate methods
+#### 1. Box plot methods - remove / cap the outliers at 1.5 * IQR i.e. 25% to 75% range
+
+iris_data = pd.read_csv(iris_data_address, header="infer")
+iris_data
