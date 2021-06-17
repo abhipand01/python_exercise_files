@@ -6,7 +6,7 @@ iris_data_address = 'C:/Users/abhis/Desktop/python_exercise_files/Data/iris.data
 
 ############################# Chapter 2: Data Preparation Start ########################################################
 
-####################################### Filtering and selecting ########################################################
+####################################### Filtering and Selecting ########################################################
 
 series_obj = Series(np.arange(8), index=['row1', 'row2', 'row3', 'row4', 'row5', 'row6', 'row7', 'row8'])
 print(series_obj)
@@ -418,5 +418,36 @@ plt.show()
 # Only Univariate methods
 #### 1. Box plot methods - remove / cap the outliers at 1.5 * IQR i.e. 25% to 75% range
 
-iris_data = pd.read_csv(iris_data_address, header="infer")
-iris_data
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from pylab import rcParams
+
+rcParams['figure.figsize'] = 5, 4
+
+iris_data = pd.read_csv(iris_data_address)
+iris_data.columns = ['Sepal Length', 'Sepal Width', 'Petal Length', 'Petal Width', 'Species']
+
+x = iris_data.iloc[:, 0:4].values
+y = iris_data.iloc[:, 4].values
+
+# Identifying outliers from Tukey boxplots
+iris_data.boxplot(return_type='dict')
+plt.show()
+
+# sepal width > 4 and < 2.05 could be potential outliers
+
+sepal_width = x[:, 1]
+iris_outliers = (sepal_width > 4.05) | (sepal_width < 2.05)
+iris_data[iris_outliers].sort_values(by='Sepal Width', ascending=False)
+
+# Applying Tukey outlier labeling
+pd.options.display.float_format = '{:.1f}'.format
+x_df = pd.DataFrame(x)
+print(x_df.describe())
+
+# 25% is 2.8, 75% is 3.3, IQR = 3.3 - 2.8 = 0.5
+# lower bound = 2.8- 1.5*IQR = 2.05
+# upper bound = 3.3 + 1.5*IRQ = 4.05
+
+
