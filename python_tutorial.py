@@ -153,7 +153,7 @@ print(df_sorted)
 
 ########################## Grouping and Aggregation ####################################################################
 
-cars = pd.read_csv(cars_address,header="infer")
+cars = pd.read_csv(cars_address, header="infer")
 cars = cars.rename(columns={'Unnamed: 0':'car_names'})
 
 print(cars.head())
@@ -469,3 +469,28 @@ plt.show()
 # Scatterplot matrix
 sb.pairplot(iris_data, hue='Species', palette='hls')
 plt.show()
+
+############################################ Quiz ######################################################################
+
+cars['qsec'].describe()
+a = np.array([[1., 3.], [2., 4.]])
+b = np.array([[5., 8.], [7., 9.]])
+
+xx = np.array([[7., 9.], [5., 12.]])
+yy = np.array([[2., 8.], [7., 4.]])
+xx.__matmul__(yy)
+
+xx=np.array([[1.,2.,3.],[4.,5.,6.]])
+yy=np.array([[10.,11.],[20.,21.],[30.,31.]])
+xx.__matmul__(yy)
+np.matmul(xx,yy)
+
+1.936 + 1.5*(1.936 - 1.714)
+1.714 - 1.5*(1.936 - 1.714)
+
+cars[(cars.vs == 1) & (cars.cyl == 6)]
+cars[cars.cyl == 6]
+pd.crosstab(cars.vs, cars.cyl)
+
+
+
