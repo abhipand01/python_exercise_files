@@ -27,8 +27,14 @@ plt.show()
 
 
 #### Setting up the regression model
-linreg = LinearRegression().fit(rooms, price)
+linreg = LinearRegression()
+linreg.fit(rooms, price)
 print(linreg.intercept_, linreg.coef_)
 
 # model performance
 linreg.score(rooms, price)
+linreg.get_params(deep=False)
+
+newrooms = 2*np.random.rand(100, 1) + 5
+newrooms[1:10]
+linreg.predict(newrooms)
