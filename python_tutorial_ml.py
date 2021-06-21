@@ -4,6 +4,8 @@ import matplotlib.pyplot as plt
 import sklearn
 from pylab import rcParams
 
+file1_address = "C:/Users/abhis/Desktop/python_exercise_files/Data/enrollment_forecast.csv"
+
 ################################ Linear Regression ##############################################################
 
 from sklearn.linear_model import LinearRegression
@@ -38,3 +40,9 @@ linreg.get_params(deep=False)
 newrooms = 2*np.random.rand(100, 1) + 5
 newrooms[1:10]
 linreg.predict(newrooms)
+
+
+################### Multiple Linear Regression ###############################################################
+
+enroll = pd.read_csv(file1_address)
+enroll.head()
